@@ -5,187 +5,120 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'Rip-Rip/clang_complete'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 call vundle#end()
-filetype plugin indent on
 " Vundle stuff end.
 
-set history=1000
-set showcmd
-set showmode
-set gcr=a:blinkon0
-set visualbell t_vb=
-
-set colorcolumn=81
+syntax on
+filetype plugin on
+filetype plugin indent on
 
 set autoread
-set number
-set t_Co=256
-syntax on
-autocmd BufNewFile,BufRead *.xtx set filetype=tex
-set ruler
 set hlsearch
+set linebreak
+set number
+set ruler
+set showcmd
+set showmode
+set wrap
+set history=1000
+set scrolloff=8
+set visualbell t_vb=
 
-set autoindent
+set wildignorecase
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.o,*.obj,*~,DS_Store*,*.gem,*.png,*.jpg,*.gif
+
+set foldmethod=indent
+set foldlevel=100
+
+set expandtab
+set smartindent
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set backspace=2
-set list listchars=tab:>-,trail:_,nbsp:.,extends:>,precedes:<
 set cindent cinoptions=(0,w1,W4,L0,l1,g0 shiftwidth=4 expandtab
 set cinoptions+=(0,w1
 
-set wrap
-set linebreak
-set wildmode=list:longest
-set wildmenu
-set wildignore=*.o,*.obj,*~,DS_Store*,*.gem,*.png,*.jpg,*.gif
-set scrolloff=8
+" Color settings.
+set t_Co=256
+set background=dark
+colorscheme hybrid
+" Override MatchParen colors if the color scheme makes the cursor disappear.
+highlight MatchParen ctermbg=none ctermfg=none
+" Override ColorColumn color if the color scheme makes it obscure the text.
+"highlight ColorColumn ctermbg=235
 
-"colorscheme 256-grayvim
-"colorscheme antares
-"colorscheme badwolf
-"colorscheme benlight
-"colorscheme Benokai
-"colorscheme blackboard
-"colorscheme blacklight
-"colorscheme blaquemagick
-"colorscheme blazer
-"colorscheme blueprint
-"colorscheme brogrammer
-"colorscheme bubblegum-256-dark
-"colorscheme buddy
-"colorscheme burnttoast256
-"colorscheme busierbee
-"colorscheme busybee
-"colorscheme bvemu
-"colorscheme cabin
-"colorscheme calmar256-dark
-"colorscheme candycode
+" Airline settings.
+let g:airline_theme='hybrid'
+let g:airline_powerline_fonts=1
+let g:airline_skip_empty_sections=1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.maxlinenr=' ln'
 
-colorscheme candyman
+" Clang complete settings.
+" Set include paths in the .clang_complete file at the base of a repository.
+let g:clang_complete_copen=1
+let g:clang_use_library=1
+let g:clang_library_path='/usr/lib/libclang.so'
+let g:clang_hl_errors=1
+let g:clang_periodic_quickfix=1
 
-"colorscheme CandyPaper
-"colorscheme charged-256
-"colorscheme Chasing_Logic
-"colorscheme clue
-"colorscheme cobalt2
-"colorscheme CodeFactoryv3
-"colorscheme colorsbox-faff
-"colorscheme colorsbox-greenish
-"colorscheme colorsbox-material
-"colorscheme colorsbox-stblue
-"colorscheme colorsbox-stbright
-"colorscheme colorsbox-steighties
-"colorscheme colorsbox-stnight
-"colorscheme colorzone
-"colorscheme cthulhian
-"colorscheme d8g_01
-"colorscheme d8g_03
-"colorscheme dante
-"colorscheme darkburn
-"colorscheme deepsea
-"colorscheme desertEx
-"colorscheme desertink
-"colorscheme detailed
-"colorscheme devbox-dark-256
-"colorscheme distinguished
-"colorscheme dracula
-"colorscheme dual
-"colorscheme elise
-"colorscheme elisex
-"colorscheme elrond
-"colorscheme eva01
-"colorscheme evolution
-"colorscheme flattr
-"colorscheme forneus
-"colorscheme frood
-"colorscheme gentooish
-"colorscheme getafe
-"colorscheme grb256
-"colorscheme gryffin
-"colorscheme harlequin
-"colorscheme herald
-"colorscheme heroku-terminal
-"colorscheme hybrid_material
-"colorscheme hybrid_reverse
-"colorscheme icansee
-"colorscheme iceberg
-"colorscheme ingretu
-"colorscheme inori
-"colorscheme ir_black
-"colorscheme itg_flat
-"colorscheme janah
-"colorscheme jellybeans
-"colorscheme jellyx
-"colorscheme kalahari
-"colorscheme kruby
-"colorscheme last256
-"colorscheme leo
-"colorscheme lettuce
-"colorscheme lilypink
-"colorscheme lucid
-"colorscheme luinnar
-"colorscheme luna-term
-"colorscheme lxvc
-"colorscheme minimalist
-"colorscheme mizore
-"colorscheme molokai_dark
-"colorscheme molokai
-"colorscheme monokain
-"colorscheme moonshine
-"colorscheme mrkn256
-"colorscheme nazca
-"colorscheme neverland2-darker
-"colorscheme neverland2
-"colorscheme neverland-darker
-"colorscheme neverland
-"colorscheme oceanblack256
-"colorscheme preto
-"colorscheme pride
-"colorscheme ps_color
-"colorscheme pt_black
-"colorscheme railscasts
-"colorscheme rdark-terminal
-"colorscheme redblack
-"colorscheme Revolution
-"colorscheme sadek1
-"colorscheme seti
-"colorscheme shobogenzo
-"colorscheme smyck
-"colorscheme sorcerer
-"colorscheme soruby
-"colorscheme sourcerer
-"colorscheme southernlights
-"colorscheme spacegray
-"colorscheme stingray
-"colorscheme strange
-"colorscheme sunburst
-"colorscheme synic
-"colorscheme tayra
-"colorscheme tchaba2
-"colorscheme termschool
-"colorscheme thornbird
-"colorscheme thor
-"colorscheme tir_black
-"colorscheme Tomorrow-Night-Bright
-"colorscheme Tomorrow-Night-Eighties
-"colorscheme Tomorrow-Night
-"colorscheme triplejelly
-"colorscheme tropikos
-"colorscheme twilight256
-"colorscheme ubaryd
-"colorscheme up
-"colorscheme valloric
-"colorscheme vimbrant
-"colorscheme wasabi256
-"colorscheme wellsokai
-"colorscheme woju
-"colorscheme wombat256i
-"colorscheme wombat256mod
-"colorscheme wombat256
-"colorscheme xoria256
-"colorscheme xterm16
-"colorscheme zephyr
-"colorscheme znake
+" Shortcuts for opening, closing, and navigating windows.
+map <C-S-Q> :q<CR>
+map <C-S-I> :vsplit<CR>
+map <C-S-J> :split<CR>
+map <C-S-Up> <C-W><Up>
+map <C-S-Down> <C-W><Down>
+map <C-S-Right> <C-W><Right>
+map <C-S-Left> <C-W><Left>
+
+"""
+" Improve visibility of lines that are too long. Long lines are generally
+" undesirable for Vim vsplit windows.
+"
+" Define a shortcut to toggle color column in case it impedes visibility of the
+" code.
+"""
+
+" Display one column where the line exceeds 80 characters.
+let g:colorcolumnsetting=81
+" Display three columns.
+"let g:colorcolumnsetting='81,101,121'
+execute 'set colorcolumn='.g:colorcolumnsetting
+map <C-C> :call ColorColumnToggle()<CR>
+function! ColorColumnToggle()
+    if &colorcolumn
+        setlocal colorcolumn=
+    else
+        execute 'setlocal colorcolumn='.g:colorcolumnsetting
+    endif
+endfunction
+
+"""
+" Displaying whitespace is useful for eliminating trailing whitespace or
+" eliminating hard tabs if undesired.
+"
+" Define a shortcut to toggle listchars in case inconsistent whitespace is
+" unavoidable and you want to save yourself some sanity.
+"""
+
+let g:listcharssetting='tab:→\ ,trail:•,eol:↲,nbsp:␣,extends:»,precedes:«'
+execute 'set list listchars='.g:listcharssetting
+map <C-X> :call ListCharsToggle()<CR>
+function! ListCharsToggle()
+    if &list
+        setlocal nolist
+    else
+        execute 'setlocal list listchars='.g:listcharssetting
+    endif
+endfunction
